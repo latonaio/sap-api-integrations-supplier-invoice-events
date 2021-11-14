@@ -1,0 +1,162 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Supplier Invoice",
+		"version": "1.0",
+		"description": "A supplier invoice is a document evidencing the posting of an incoming physical or electronic invoice in the SAP system during the invoice verification process. The invoice document can contain one or more items. The following events are available for supplice invoice: \n - Supplier invoice posted \n - Supplier invoice reversed"
+	},
+	"externalDocs": {
+		"description": "Business Documentation",
+		"url": "https://help.sap.com/viewer/91af7f8d3acd47da90d33aaacfcd0d59/2021.000/en-US/3f383669990a4957b0b58eae7d8b67b4.html"
+	},
+	"components": {
+		"schemas": {
+			"sap.s4.beh.supplierinvoice.v1.SupplierInvoice.Canceled.v1": {
+				"type": "object",
+				"properties": {
+					"FiscalYear": {
+						"type": "string"
+					},
+					"SupplierInvoice": {
+						"type": "string"
+					}
+				}
+			},
+			"sap.s4.beh.supplierinvoice.v1.SupplierInvoice.Created.v1": {
+				"type": "object",
+				"properties": {
+					"FiscalYear": {
+						"type": "string"
+					},
+					"SupplierInvoice": {
+						"type": "string"
+					}
+				}
+			},
+			"CloudContext": {
+				"title": "Schema for the CloudEvents context fields.",
+				"description": "This is a schema specification for the context fields as per CloudEvent standards.",
+				"type": "object",
+				"properties": {
+					"specversion": {
+						"description": "The version of the CloudEvents specification which the event uses. This enables the interpretation of the context.",
+						"type": "string"
+					},
+					"type": {
+						"description": "Type of occurrence which has happened. Often this property is used for routing, observability, policy enforcement, etc.",
+						"type": "string",
+						"minLength": 1
+					},
+					"source": {
+						"description": "This describes the event producer.",
+						"type": "string",
+						"format": "uri-reference"
+					},
+					"subject": {
+						"description": "The subject of the event in the context of the event producer (identified by source).",
+						"type": "string",
+						"minLength": 1
+					},
+					"id": {
+						"description": "ID of the event.",
+						"type": "string",
+						"minLength": 1
+					},
+					"time": {
+						"description": "Timestamp of when the occurrence happened. Must adhere to RFC 3339.",
+						"type": "string",
+						"format": "date-time"
+					},
+					"datacontenttype": {
+						"description": "Describe the data encoding format",
+						"type": "string"
+					}
+				},
+				"required": [
+					"id",
+					"specversion",
+					"source",
+					"type"
+				]
+			}
+		}
+	},
+	"paths": {
+		"/sap.s4.beh.supplierinvoice.v1.SupplierInvoice.Canceled.v1": {
+			"post": {
+				"tags": [
+					"Canceled"
+				],
+				"x-payload": "",
+				"description": " This event is raised when a supplier invoice has been reversed.",
+				"summary": "Supplier Invoice Canceled",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"allOf": [
+									{
+										"type": "object",
+										"$ref": "#/components/schemas/CloudContext"
+									},
+									{
+										"type": "object",
+										"properties": {
+											"data": {
+												"description": "Data Fields",
+												"$ref": "#/components/schemas/sap.s4.beh.supplierinvoice.v1.SupplierInvoice.Canceled.v1"
+											}
+										}
+									}
+								]
+							}
+						}
+					}
+				},
+				"responses": {
+					"default": {
+						"description": "Success"
+					}
+				}
+			}
+		},
+		"/sap.s4.beh.supplierinvoice.v1.SupplierInvoice.Created.v1": {
+			"post": {
+				"tags": [
+					"Created"
+				],
+				"x-payload": "",
+				"description": " This event is raised when a supplier invoice has been posted.",
+				"summary": "Supplier Invoice Created",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"allOf": [
+									{
+										"type": "object",
+										"$ref": "#/components/schemas/CloudContext"
+									},
+									{
+										"type": "object",
+										"properties": {
+											"data": {
+												"description": "Data Fields",
+												"$ref": "#/components/schemas/sap.s4.beh.supplierinvoice.v1.SupplierInvoice.Created.v1"
+											}
+										}
+									}
+								]
+							}
+						}
+					}
+				},
+				"responses": {
+					"default": {
+						"description": "Success"
+					}
+				}
+			}
+		}
+	}
+}
